@@ -1,0 +1,32 @@
+﻿@model ProjectMarto.ViewModels.Home.IndexVM
+@using ProjectMarto.Models
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Home Page ";
+}
+
+<form method="post" asp-action="Index" asp-controller="Home">
+    <select name="selectedCategory" onchange="this.form.submit()">
+        <option value="">All Categories</option>
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@category.Name" selected="@(Model.SelectedCategory == category.Name ? "selected" : null)">
+                @category.Name
+            </option>
+        }
+    </select>
+</form>
+
+
+@foreach (Product product in Model.Products)  //product
+{
+    <div class="card mb-3" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@product.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@product.Price</h6>
+            <a asp-action="Index" asp-controller="Preview" asp-route-id="@product.ProductId" class="btn btn-primary">Preview</a>
+        </div>
+    </div>
+}
+

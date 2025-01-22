@@ -1,0 +1,44 @@
+﻿@using ProjectMarto.Models;
+@using ProjectMarto.ExtentionMethods;
+
+@{
+	User loggedUser = this.ViewContext.HttpContext.Session.GetObject<User>("loggedUser");
+
+}
+
+
+
+
+<html>
+<head>
+	<title>@ViewData["title"]</title>
+	<link href="~/css/site.css" rel="stylesheet" />
+</head>
+<body>
+	<div class="container header">
+		<h1 class="title">Clothing Store</h1>
+		<div class="welcomeMsg">
+		</div>
+	</div>
+	<div class="container">
+		<ul class="menu">
+
+			<li><a href="/Home/Index">Home</a></li>
+			@if (loggedUser != null)
+			{
+				<li><a href="/Home/Logout">Logout</a></li>
+				<li><a href="/Orders/Index">Orders</a></li>
+			}
+			else
+			{
+				<li><a href="/Home/Login">Login</a></li>
+			}
+
+
+		</ul>
+	</div>
+	<div class="container">
+		@RenderBody()
+	</div>
+</body>
+</html>

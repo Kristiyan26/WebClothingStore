@@ -1,0 +1,50 @@
+﻿@model ProjectMarto.ViewModels.Home.SignUpVM
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Sign Up";
+}
+
+
+
+<fieldset>
+    <legend>SIGN UP</legend>
+
+    <form asp-action="SignUp" asp-controller="Home" method="post">
+
+        <div class="grid">
+            <div class="row">
+                <div class="col-1">@Html.LabelFor(m => m.Username)</div>
+                <div class="col-2">
+                    @Html.TextBoxFor(m => m.Username)
+                </div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Username)  </div>
+            </div>
+            <div class="row">
+                <div class="col-1">@Html.LabelFor(m => m.Password)</div>
+                <div class="col-2">
+                    @Html.PasswordFor(m => m.Password)
+                </div>
+                <div class="col-2">@Html.ValidationMessageFor(m => m.Password)  </div>
+
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-2">
+                    @Html.ValidationMessage("authError",
+                             new { @style = "error right" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1"></div>
+                <div class="col-2">
+                    <input type="submit" value="Sign Up" />
+                    <a asp-controller="Home" asp-action="Index"> Cancel</a>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+    </fieldset''>
