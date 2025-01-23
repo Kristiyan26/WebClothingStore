@@ -6,13 +6,12 @@
 @{
 }
 
-@for(int i =0;i<=Model.Orders.Count;i++)  //product
+@for(int i =0;i<Model.Orders.Count;i++)  //product
 {
     @foreach(OrderProduct orderProduct in Model.Orders[i].OrderProducts){
         <div class="card mb-3" style="width: 18rem;">
             <div class="card-body">
                 <h5 class="card-title">@orderProduct.Product.Name</h5>
-                <h6 class="card-subtitle mb-2 text-muted">@orderProduct.Product.Name</h6>
 
             </div>
         </div>

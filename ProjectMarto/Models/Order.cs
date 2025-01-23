@@ -10,7 +10,7 @@ namespace ProjectMarto.Models
 
         [Required]
         public int UserId { get; set; }
-        public virtual User User { get; set; }
+        public  User User { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; } 
@@ -18,6 +18,6 @@ namespace ProjectMarto.Models
         [Required]
         public decimal TotalPrice { get; set; }
 
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
+        public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

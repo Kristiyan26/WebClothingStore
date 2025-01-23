@@ -31,7 +31,7 @@ namespace ProjectMarto.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies()
+            optionsBuilder
                 .UseSqlServer("Server=localhost;Database=OnlineShopDb;Trusted_Connection=True;TrustServerCertificate=true")
                ;
         }

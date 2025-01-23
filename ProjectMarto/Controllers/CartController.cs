@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProjectMarto.ActionFilters;
 using ProjectMarto.ExtentionMethods;
 using ProjectMarto.Models;
 using ProjectMarto.Repositories;
@@ -7,6 +9,7 @@ using System.Collections.Generic;
 
 namespace ProjectMarto.Controllers
 {
+    [AuthenticationFilter]
     public class CartController : Controller
     {
         private const string CartSessionKey = "Cart";
@@ -71,24 +74,30 @@ namespace ProjectMarto.Controllers
             {
                 Order order = new Order();
                 order.UserId = user.UserId;
+                order.OrderDate= DateTime.Now;
+                order.TotalPrice = 0;
+                
                 context.Orders.Add(order);
+                context.SaveChanges();
+            
                 foreach(Product product in cart)
                 {
+                    order.TotalPrice += product.Price;
+
                     OrderProduct orderProduct = new OrderProduct(); 
                     orderProduct.ProductId = product.ProductId;
                     orderProduct.OrderId = order.OrderId;
 
-                    order.OrderProducts.Add(orderProduct);  
-
+                    //order.OrderProducts.Add(orderProduct);
                     context.OrderProducts.Add(orderProduct);
                 }
-               
+
+                context.Entry(order).State = EntityState.Modified;
+                context.SaveChanges();
             }
 
 
-            context.SaveChanges();
-
-
+            this.HttpContext.Session.SetObject<List<Product>>(CartSessionKey, null);
             return RedirectToAction("Index", "Cart");
         }
     }
