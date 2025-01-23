@@ -21,6 +21,6 @@
         <p>No reviews available.</p>
     }
 
-    <a asp-action="Buy" asp-controller="Preview" asp-route-id="Model.Product.ProductId" class="btn btn-success">Buy</a>
+    <a asp-action="AddToCart" asp-controller="Cart" asp-route-id="@Model.Product.ProductId" class="btn btn-success">Add to cart</a>
     <a asp-action="Index" asp-controller="Home" class="btn btn-danger" >Cancel</a>
 </div>

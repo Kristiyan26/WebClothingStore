@@ -31,7 +31,7 @@ namespace ProjectMarto.Repositories
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder
+            optionsBuilder.UseLazyLoadingProxies()
                 .UseSqlServer("Server=localhost;Database=OnlineShopDb;Trusted_Connection=True;TrustServerCertificate=true")
                ;
         }
@@ -124,29 +124,26 @@ namespace ProjectMarto.Repositories
                 {
                     OrderProductId = 1,
                     OrderId = 1,
-                    ProductId = 1,
-                    Quantity = 1
+                    ProductId = 1
                 },
                 new OrderProduct
                 {
                     OrderProductId = 2,
                     OrderId = 1,
-                    ProductId = 4,
-                    Quantity = 2
+                    ProductId = 4
+
                 },
                 new OrderProduct
                 {
                     OrderProductId = 3,
                     OrderId = 2,
-                    ProductId = 2,
-                    Quantity = 1
+                    ProductId = 2
                 },
                 new OrderProduct
                 {
                     OrderProductId = 4,
                     OrderId = 2,
-                    ProductId = 4,
-                    Quantity = 1
+                    ProductId = 4
                 }
             );
 

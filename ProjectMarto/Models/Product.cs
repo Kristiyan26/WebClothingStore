@@ -20,10 +20,10 @@ namespace ProjectMarto.Models
 
         [Required]
         public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        public virtual Category Category { get; set; }
 
-        public ICollection<Review> Reviews { get; set; }
-        public ICollection<OrderProduct> OrderProducts { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
+        public  virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 
 }

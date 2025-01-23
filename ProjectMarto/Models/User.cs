@@ -14,7 +14,7 @@ namespace ProjectMarto.Models
         [Required]
         public string Password { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
     }
 }

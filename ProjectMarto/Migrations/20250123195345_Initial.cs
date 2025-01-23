@@ -118,8 +118,7 @@ namespace ProjectMarto.Migrations
                     OrderProductId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderId = table.Column<int>(type: "int", nullable: false),
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -179,13 +178,13 @@ namespace ProjectMarto.Migrations
 
             migrationBuilder.InsertData(
                 table: "OrderProducts",
-                columns: new[] { "OrderProductId", "OrderId", "ProductId", "Quantity" },
+                columns: new[] { "OrderProductId", "OrderId", "ProductId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1 },
-                    { 2, 1, 4, 2 },
-                    { 3, 2, 2, 1 },
-                    { 4, 2, 4, 1 }
+                    { 1, 1, 1 },
+                    { 2, 1, 4 },
+                    { 3, 2, 2 },
+                    { 4, 2, 4 }
                 });
 
             migrationBuilder.InsertData(

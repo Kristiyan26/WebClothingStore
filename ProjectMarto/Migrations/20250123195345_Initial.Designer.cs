@@ -12,7 +12,7 @@ using ProjectMarto.Repositories;
 namespace ProjectMarto.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20250120183725_Initial")]
+    [Migration("20250123195345_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -21,6 +21,9 @@ namespace ProjectMarto.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -114,9 +117,6 @@ namespace ProjectMarto.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("OrderProductId");
 
                     b.HasIndex("OrderId");
@@ -130,29 +130,25 @@ namespace ProjectMarto.Migrations
                         {
                             OrderProductId = 1,
                             OrderId = 1,
-                            ProductId = 1,
-                            Quantity = 1
+                            ProductId = 1
                         },
                         new
                         {
                             OrderProductId = 2,
                             OrderId = 1,
-                            ProductId = 4,
-                            Quantity = 2
+                            ProductId = 4
                         },
                         new
                         {
                             OrderProductId = 3,
                             OrderId = 2,
-                            ProductId = 2,
-                            Quantity = 1
+                            ProductId = 2
                         },
                         new
                         {
                             OrderProductId = 4,
                             OrderId = 2,
-                            ProductId = 4,
-                            Quantity = 1
+                            ProductId = 4
                         });
                 });
 
