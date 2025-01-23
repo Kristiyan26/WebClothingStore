@@ -8,7 +8,14 @@ namespace ProjectMarto
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddControllers()
+                          .AddJsonOptions(options =>
+                          {
+                              options.JsonSerializerOptions.ReferenceHandler
+                                   = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+                          });
             builder.Services.AddSession();
+        
 
             var app = builder.Build();
 

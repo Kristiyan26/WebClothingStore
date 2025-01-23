@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
@@ -10,6 +11,8 @@ namespace ProjectMarto.Models
         [Required, MaxLength(100)]
         public string Name { get; set; }
 
-        public  ICollection<Product> Products { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

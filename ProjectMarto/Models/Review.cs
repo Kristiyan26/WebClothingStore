@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
@@ -9,11 +11,16 @@ namespace ProjectMarto.Models
 
         [Required]
         public int UserId { get; set; }
-        public  User User { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual User User { get; set; }
 
         [Required]
         public int ProductId { get; set; }
-        public  Product Product { get; set; }
+
+        [ForeignKey("ProductId")]
+        [JsonIgnore]
+        public virtual Product Product { get; set; }
 
         [Required]
         public int Rating { get; set; }

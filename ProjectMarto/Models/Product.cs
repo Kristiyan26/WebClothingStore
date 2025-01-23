@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
@@ -19,11 +20,16 @@ namespace ProjectMarto.Models
         public decimal Price { get; set; }
 
         [Required]
+        
         public int CategoryId { get; set; }
-        public  Category Category { get; set; }
 
-        public  ICollection<Review> Reviews { get; set; }
-        public   ICollection<OrderProduct> OrderProducts { get; set; }
+        [ForeignKey("CategoryId")]
+        public virtual Category Category { get; set; }
+
+        public virtual ICollection<Review> Reviews { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 
 }

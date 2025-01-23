@@ -12,7 +12,7 @@ using ProjectMarto.Repositories;
 namespace ProjectMarto.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20250123201909_Initial")]
+    [Migration("20250123214034_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -21,6 +21,9 @@ namespace ProjectMarto.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
