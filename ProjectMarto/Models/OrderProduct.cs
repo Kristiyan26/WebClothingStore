@@ -4,10 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
-    public class OrderProduct
+    public class OrderProduct:BaseModel
     {
-        [Key]
-        public int OrderProductId { get; set; }
+      
 
         [Required]
         public int OrderId { get; set; }

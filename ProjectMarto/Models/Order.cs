@@ -3,10 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProjectMarto.Models
 {
-    public class Order
+    public class Order : BaseModel
     {
-        [Key]
-        public int OrderId { get; set; }
+        
 
         [Required]
         public int UserId { get; set; }

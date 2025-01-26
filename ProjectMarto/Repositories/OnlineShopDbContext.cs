@@ -32,7 +32,7 @@ namespace ProjectMarto.Repositories
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies()
-                .UseSqlServer("Server=localhost;Database=OnlineShopDb;Trusted_Connection=True;TrustServerCertificate=true")
+                .UseSqlServer("Server=localhost;Database=OnlineShopDataBase;Trusted_Connection=True;TrustServerCertificate=true")
                ;
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,44 +43,48 @@ namespace ProjectMarto.Repositories
 
             // Seeding Categories
             modelBuilder.Entity<Category>().HasData(
-                new Category { CategoryId = 1, Name = "T-shirt" },
-                new Category { CategoryId = 2, Name = "Sweatshirt" },
-                new Category { CategoryId = 3, Name = "Tracksuit" }
+                new Category { Id = 1, Name = "T-shirt" },
+                new Category { Id = 2, Name = "Sweatshirt" },
+                new Category { Id = 3, Name = "Tracksuit" }
             );
 
             // Seeding Products
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
-                    ProductId = 1,
+                    Id = 1,
                     Name = "White T-shirt",
                     Description = "Cool T-shirt",
                     Price = 20,
-                    CategoryId = 1
+                    CategoryId = 1,
+                    PhotoURL = "/photos/tshirt.jpg"
                 },
                 new Product
                 {
-                    ProductId = 2,
+                    Id = 2,
                     Name = "Gray Sweatshirt",
                     Description = "Cool Sweatshirt",
                     Price = 40,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    PhotoURL = "/photos/sweatshirt.jpg"
                 },
                 new Product
                 {
-                    ProductId = 3,
+                    Id = 3,
                     Name = "Blue Sweatshirt",
                     Description = "Cooler Sweatshirt",
                     Price = 19.99m,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    PhotoURL = "/photos/bluesweatshirt.jpg"
                 },
                 new Product
                 {
-                    ProductId = 4,
+                    Id = 4,
                     Name = "Nike Tracksuit",
                     Description = "Comfortable tracksuit perfect for burglary",
                     Price = 200,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    PhotoURL= "/photos/niketracksuit.jpg"
                 }
             );
 
@@ -88,70 +92,27 @@ namespace ProjectMarto.Repositories
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    UserId = 1,
+                    Id = 1,
                     Username = "JohnyDep",
                     Password = "1234"
                 },
                 new User
                 {
-                    UserId = 2,
+                    Id = 2,
                     Username = "Brata",
                     Password = "1234"
                 }
             );
 
-            // Seeding Orders
-            modelBuilder.Entity<Order>().HasData(
-                new Order
-                {
-                    OrderId = 1,
-                    UserId = 1,
-                    OrderDate = new DateTime(2025, 1, 1),
-                    TotalPrice = 719
-                },
-                new Order
-                {
-                    OrderId = 2,
-                    UserId = 2,
-                    OrderDate = new DateTime(2025, 1, 1),
-                    TotalPrice = 1214
-                }
-            );
+            
 
-            // Seeding OrderProducts
-            modelBuilder.Entity<OrderProduct>().HasData(
-                new OrderProduct
-                {
-                    OrderProductId = 1,
-                    OrderId = 1,
-                    ProductId = 1
-                },
-                new OrderProduct
-                {
-                    OrderProductId = 2,
-                    OrderId = 1,
-                    ProductId = 4
-
-                },
-                new OrderProduct
-                {
-                    OrderProductId = 3,
-                    OrderId = 2,
-                    ProductId = 2
-                },
-                new OrderProduct
-                {
-                    OrderProductId = 4,
-                    OrderId = 2,
-                    ProductId = 4
-                }
-            );
+           
 
             // Seeding Reviews
             modelBuilder.Entity<Review>().HasData(
                 new Review
                 {
-                    ReviewId = 1,
+                    Id = 1,
                     UserId = 1,
                     ProductId = 1,
                     Rating = 5,
@@ -159,19 +120,19 @@ namespace ProjectMarto.Repositories
                 },
                 new Review
                 {
-                    ReviewId = 2,
+                    Id = 2,
                     UserId = 2,
                     ProductId = 2,
                     Rating = 4,
-                    Comment = "Great laptop, but a bit pricey."
+                    Comment = "Great."
                 },
                 new Review
                 {
-                    ReviewId = 3,
+                    Id = 3,
                     UserId = 1,
                     ProductId = 3,
                     Rating = 4,
-                    Comment = "Enjoyed the book, good storyline."
+                    Comment = "Good."
                 }
             );
 

@@ -12,16 +12,17 @@ namespace ProjectMarto.Controllers
         public IActionResult Index(int id)
         {
 
-            OnlineShopDbContext context = new OnlineShopDbContext(); 
+            ProductRepository repo = new ProductRepository();
+            ReviewRepository reviewRepo = new ReviewRepository();
 
-            Product product = context.Products.FirstOrDefault(x=>x.ProductId==id);
+            Product product = repo.GetFirstOrDefault(x=>x.Id==id);
 
             //SELECT FROM PROCUTS WHERE ID = 1;
 
             IndexVM model = new IndexVM();
 
             model.Product = product;
-            model.Reviews = context.Reviews.Where(x => x.ProductId == product.ProductId).ToList(); 
+            model.Reviews = reviewRepo.GetAll(x => x.ProductId == product.Id).ToList(); 
 
        
             return View(model);

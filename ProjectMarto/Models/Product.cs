@@ -4,10 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
-    public class Product
+    public class Product:BaseModel
     {
-        [Key]
-        public int ProductId { get; set; }
+        
 
         [Required, MaxLength(150)]
         public string Name { get; set; }
@@ -26,9 +25,11 @@ namespace ProjectMarto.Models
         [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
 
+        public string PhotoURL { get; set; }
+
         public virtual ICollection<Review> Reviews { get; set; }
 
-        [JsonIgnore]
+        [JsonIgnore] //problem sus sesiqta(poluchavashe se loop)
         public virtual ICollection<OrderProduct> OrderProducts { get; set; }
     }
 

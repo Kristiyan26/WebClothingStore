@@ -4,10 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace ProjectMarto.Models
 {
-    public class Review
+    public class Review: BaseModel
     {
-        [Key]
-        public int ReviewId { get; set; }
+      
 
         [Required]
         public int UserId { get; set; }

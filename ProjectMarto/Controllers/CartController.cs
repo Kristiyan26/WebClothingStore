@@ -17,21 +17,23 @@ namespace ProjectMarto.Controllers
         // Add an item to the cart
         public IActionResult AddToCart(int id)
         {
-            OnlineShopDbContext context = new OnlineShopDbContext();
-            List<Product> cart = this.HttpContext.Session.GetObject<List<Product>>(CartSessionKey) ?? new List<Product>();
+            ProductRepository productRepository = new ProductRepository();
+            List<Product> cart = this.HttpContext.Session.GetObject<List<Product>>(CartSessionKey) ?? new List<Product>(); //list ot producti(kolichka) v sesiqta 
 
-            Product product = context.Products.FirstOrDefault(p => p.ProductId == id);
+            Product product = productRepository.GetFirstOrDefault(p => p.Id == id);
             
             if (product != null)
             {
-                if (cart.FirstOrDefault(p => p.ProductId == product.ProductId) != null)
+                if (cart.FirstOrDefault(p => p.Id == product.Id) != null)
                 {
                     return RedirectToAction("Index", "Home");
+                    // za da ne dobavqsh dreha vtori put
                 }
                 else
                 {
                     cart.Add(product);
                     HttpContext.Session.SetObject(CartSessionKey, cart);
+                   
                     
                 }
            
@@ -54,7 +56,7 @@ namespace ProjectMarto.Controllers
         {
             List<Product> cart = HttpContext.Session.GetObject<List<Product>>(CartSessionKey) ?? new List<Product>();
 
-            Product item = cart.FirstOrDefault(c => c.ProductId == id);
+            Product item = cart.FirstOrDefault(c => c.Id == id);
             if (item != null)
             {
                 cart.Remove(item);
@@ -66,34 +68,33 @@ namespace ProjectMarto.Controllers
 
         public IActionResult Buy()
         {
-            OnlineShopDbContext context = new OnlineShopDbContext();
+            OrderRepository orderrepo=new OrderRepository();
+            OrderProductRepository orderproductrepo= new OrderProductRepository();
             List<Product> cart = HttpContext.Session.GetObject<List<Product>>(CartSessionKey) ?? new List<Product>();
             User user = this.HttpContext.Session.GetObject<User>("loggedUser");
 
             if (cart.Count > 0&& user!=null)
             {
                 Order order = new Order();
-                order.UserId = user.UserId;
+                order.UserId = user.Id;
                 order.OrderDate= DateTime.Now;
-                order.TotalPrice = 0;
-                
-                context.Orders.Add(order);
-                context.SaveChanges();
-            
-                foreach(Product product in cart)
+                order.TotalPrice = cart.Sum(x=>x.Price);
+
+                orderrepo.Save(order);
+
+
+                foreach (Product product in cart)
                 {
-                    order.TotalPrice += product.Price;
-
-                    OrderProduct orderProduct = new OrderProduct(); 
-                    orderProduct.ProductId = product.ProductId;
-                    orderProduct.OrderId = order.OrderId;
-
+                   
+                    OrderProduct orderProduct = new OrderProduct();
+                    orderProduct.ProductId = product.Id;
+                    orderProduct.OrderId = order.Id;
+                    
                     //order.OrderProducts.Add(orderProduct);
-                    context.OrderProducts.Add(orderProduct);
+                    orderproductrepo.Save(orderProduct);
                 }
+                
 
-                context.Entry(order).State = EntityState.Modified;
-                context.SaveChanges();
             }
 
 

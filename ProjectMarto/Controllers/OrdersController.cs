@@ -13,13 +13,13 @@ namespace ProjectMarto.Controllers
     {
         public IActionResult Index()
         {
-            OnlineShopDbContext context = new OnlineShopDbContext();
+            OrderRepository repo=new OrderRepository();
 
             IndexVM model = new IndexVM();
             User user = this.HttpContext.Session.GetObject<User>("loggedUser");
 
      
-            model.Orders = context.Orders.Where(x => x.UserId == user.UserId).ToList();
+            model.Orders = repo.GetAll(x => x.UserId == user.Id);
             return View(model);
         }
     }

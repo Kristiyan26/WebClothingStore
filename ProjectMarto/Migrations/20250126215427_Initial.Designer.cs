@@ -12,7 +12,7 @@ using ProjectMarto.Repositories;
 namespace ProjectMarto.Migrations
 {
     [DbContext(typeof(OnlineShopDbContext))]
-    [Migration("20250123214034_Initial")]
+    [Migration("20250126215427_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -30,46 +30,46 @@ namespace ProjectMarto.Migrations
 
             modelBuilder.Entity("ProjectMarto.Models.Category", b =>
                 {
-                    b.Property<int>("CategoryId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("CategoryId");
+                    b.HasKey("Id");
 
                     b.ToTable("Categories");
 
                     b.HasData(
                         new
                         {
-                            CategoryId = 1,
+                            Id = 1,
                             Name = "T-shirt"
                         },
                         new
                         {
-                            CategoryId = 2,
+                            Id = 2,
                             Name = "Sweatshirt"
                         },
                         new
                         {
-                            CategoryId = 3,
+                            Id = 3,
                             Name = "Tracksuit"
                         });
                 });
 
             modelBuilder.Entity("ProjectMarto.Models.Order", b =>
                 {
-                    b.Property<int>("OrderId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
@@ -80,36 +80,20 @@ namespace ProjectMarto.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId");
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderId = 1,
-                            OrderDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 719m,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            OrderId = 2,
-                            OrderDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TotalPrice = 1214m,
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("ProjectMarto.Models.OrderProduct", b =>
                 {
-                    b.Property<int>("OrderProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
@@ -117,48 +101,22 @@ namespace ProjectMarto.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderProductId = 1,
-                            OrderId = 1,
-                            ProductId = 1
-                        },
-                        new
-                        {
-                            OrderProductId = 2,
-                            OrderId = 1,
-                            ProductId = 4
-                        },
-                        new
-                        {
-                            OrderProductId = 3,
-                            OrderId = 2,
-                            ProductId = 2
-                        },
-                        new
-                        {
-                            OrderProductId = 4,
-                            OrderId = 2,
-                            ProductId = 4
-                        });
                 });
 
             modelBuilder.Entity("ProjectMarto.Models.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
@@ -176,7 +134,7 @@ namespace ProjectMarto.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("ProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
@@ -185,7 +143,7 @@ namespace ProjectMarto.Migrations
                     b.HasData(
                         new
                         {
-                            ProductId = 1,
+                            Id = 1,
                             CategoryId = 1,
                             Description = "Cool T-shirt",
                             Name = "White T-shirt",
@@ -193,7 +151,7 @@ namespace ProjectMarto.Migrations
                         },
                         new
                         {
-                            ProductId = 2,
+                            Id = 2,
                             CategoryId = 2,
                             Description = "Cool Sweatshirt",
                             Name = "Gray Sweatshirt",
@@ -201,7 +159,7 @@ namespace ProjectMarto.Migrations
                         },
                         new
                         {
-                            ProductId = 3,
+                            Id = 3,
                             CategoryId = 2,
                             Description = "Cooler Sweatshirt",
                             Name = "Blue Sweatshirt",
@@ -209,7 +167,7 @@ namespace ProjectMarto.Migrations
                         },
                         new
                         {
-                            ProductId = 4,
+                            Id = 4,
                             CategoryId = 3,
                             Description = "Comfortable tracksuit perfect for burglary",
                             Name = "Nike Tracksuit",
@@ -219,11 +177,11 @@ namespace ProjectMarto.Migrations
 
             modelBuilder.Entity("ProjectMarto.Models.Review", b =>
                 {
-                    b.Property<int>("ReviewId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ReviewId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comment")
                         .IsRequired()
@@ -239,7 +197,7 @@ namespace ProjectMarto.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ReviewId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
@@ -250,7 +208,7 @@ namespace ProjectMarto.Migrations
                     b.HasData(
                         new
                         {
-                            ReviewId = 1,
+                            Id = 1,
                             Comment = "Amazing product! Highly recommend.",
                             ProductId = 1,
                             Rating = 5,
@@ -258,16 +216,16 @@ namespace ProjectMarto.Migrations
                         },
                         new
                         {
-                            ReviewId = 2,
-                            Comment = "Great laptop, but a bit pricey.",
+                            Id = 2,
+                            Comment = "Great.",
                             ProductId = 2,
                             Rating = 4,
                             UserId = 2
                         },
                         new
                         {
-                            ReviewId = 3,
-                            Comment = "Enjoyed the book, good storyline.",
+                            Id = 3,
+                            Comment = "Good.",
                             ProductId = 3,
                             Rating = 4,
                             UserId = 1
@@ -276,11 +234,11 @@ namespace ProjectMarto.Migrations
 
             modelBuilder.Entity("ProjectMarto.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -291,20 +249,20 @@ namespace ProjectMarto.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.HasKey("UserId");
+                    b.HasKey("Id");
 
                     b.ToTable("Users");
 
                     b.HasData(
                         new
                         {
-                            UserId = 1,
+                            Id = 1,
                             Password = "1234",
                             Username = "JohnyDep"
                         },
                         new
                         {
-                            UserId = 2,
+                            Id = 2,
                             Password = "1234",
                             Username = "Brata"
                         });
@@ -313,7 +271,7 @@ namespace ProjectMarto.Migrations
             modelBuilder.Entity("ProjectMarto.Models.Order", b =>
                 {
                     b.HasOne("ProjectMarto.Models.User", "User")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -389,8 +347,6 @@ namespace ProjectMarto.Migrations
 
             modelBuilder.Entity("ProjectMarto.Models.User", b =>
                 {
-                    b.Navigation("Orders");
-
                     b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618

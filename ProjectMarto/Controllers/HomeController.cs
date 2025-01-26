@@ -16,11 +16,11 @@ namespace ProjectMarto.Controllers
         [HttpPost]
         public IActionResult Index(string? selectedCategory)
         {
-            OnlineShopDbContext context = new OnlineShopDbContext();
-
+            CategoryRepository categoryRepository = new CategoryRepository();
+            ProductRepository productRepository = new ProductRepository(); 
             IndexVM model = new IndexVM();
 
-            model.Categories = context.Categories.ToList();
+            model.Categories = categoryRepository.GetAll();
             model.SelectedCategory = selectedCategory;
 
 
@@ -28,13 +28,13 @@ namespace ProjectMarto.Controllers
 
             if (!string.IsNullOrEmpty(selectedCategory))
             {
-                model.Products = context.Products
-                                         .Where(x => x.Category.Name == selectedCategory)
-                                         .ToList();
+                model.Products = productRepository
+                                         .GetAll(x => x.Category.Name == selectedCategory);
+                                        
             }
             else
             {
-                model.Products = context.Products.ToList();
+                model.Products = productRepository.GetAll();
             }
 
             return View(model);
@@ -52,11 +52,12 @@ namespace ProjectMarto.Controllers
 
         public IActionResult SignUp(SignUpVM model)
         {
-            //TODO : Find a way to check in the database if a User with the given Username
-            //is already existing. If it is send an error message to the view that says
-            //'Username is taken'
+            if (!this.ModelState.IsValid)
+            {
+                return View(model);
+            }
 
-            OnlineShopDbContext context=new OnlineShopDbContext();
+            UserRepository userRepository = new UserRepository();
 
             User newUser = new User();
             
@@ -64,9 +65,7 @@ namespace ProjectMarto.Controllers
             newUser.Username = model.Username; 
             newUser.Password=model.Password;
 
-            context.Users.Add(newUser);
-
-            context.SaveChanges();
+            userRepository.Save(newUser);
 
             
 
@@ -90,9 +89,9 @@ namespace ProjectMarto.Controllers
                 return View(model);
             }
 
-            OnlineShopDbContext context = new OnlineShopDbContext();
+            UserRepository userRepo= new UserRepository();
 
-            User loggedUser = context.Users.FirstOrDefault(x => x.Username == model.Username && x.Password == model.Password);
+            User loggedUser = userRepo.GetFirstOrDefault(x => x.Username == model.Username && x.Password == model.Password);
 
             if (loggedUser == null)
             {
